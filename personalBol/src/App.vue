@@ -1,0 +1,39 @@
+<script lang="ts" setup>
+import oml2d from './components/icon/oml2d.vue'
+</script>
+<template>
+  <oml2d></oml2d>
+  <div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</template>
+<style scoped>
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-image: url('./assets/bg-image-可塑性记忆.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* 虚化 */
+  filter: blur(25px);
+
+  .left {
+    width: 30%;
+    height: 100vh;
+    float: left;
+    background: transparent;
+  }
+
+  .right {
+    width: 70%;
+    height: 100vh;
+    float: right;
+    background: transparent;
+  }
+}
+</style>
