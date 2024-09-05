@@ -7,6 +7,7 @@ const oml2dRef = ref<HTMLElement>()
 onMounted(() => {
     const oml2d = loadOml2d({
         parentElement: oml2dRef.value,
+        dockedPosition: 'right',
         // ... other options
         statusBar: {
             loadingIcon: 'icon-loading'
@@ -19,6 +20,8 @@ onMounted(() => {
                     title: '休息',
                     onClick(oml2d): void {
                         // actions ...
+                        void oml2d.stageSlideOut();
+                        // oml2d.initialStatus = 'sleep';
                     }
                 },
                 {
@@ -88,6 +91,9 @@ onMounted(() => {
         oml2d.tipsMessage(`兄弟你好香啊，当前版本 ${oml2d.version}`, 4000, 10)
     })
 
+    oml2d.onStageSlideOut(() => {
+        oml2d.initialStatus = 'sleep'
+    })
 })
 </script>
 

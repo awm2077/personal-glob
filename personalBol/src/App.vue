@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import oml2d from './components/icon/oml2d.vue'
+import LeftMsg from './components/Left-msg.vue'
 </script>
 <template>
   <oml2d></oml2d>
   <div class="container">
-    <div class="left"></div>
+    <div class="left">
+      <LeftMsg />
+    </div>
     <div class="right"></div>
   </div>
 </template>
@@ -16,24 +19,23 @@ import oml2d from './components/icon/oml2d.vue'
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-image: url('./assets/bg-image-可塑性记忆.jpg');
+  background-image: url('@/assets/bg-image-可塑性记忆.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  /* 虚化 */
-  filter: blur(25px);
+  /* filter: blur(25px); */
+}
 
-  .left {
-    width: 30%;
-    height: 100vh;
-    float: left;
-    background: transparent;
-  }
+.left {
+  width: 30%;
+  height: 100%;
+  float: left;
+  /* background: transparent; */
+}
 
-  .right {
-    width: 70%;
-    height: 100vh;
-    float: right;
-    background: transparent;
-  }
+.right {
+  width: 70%;
+  height: auto;
+  float: right;
+  background: transparent;
 }
 </style>
