@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import vue from "@vitejs/plugin-vue";
-import AutoImport from "unplugin-auto-import/vite";
+import ViteAutoImport from "unplugin-auto-import/vite";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import Components from "unplugin-vue-components/vite";
@@ -14,7 +14,7 @@ export default defineConfig({
   plugins: [
     vue(),
     tailwindcss(),
-    AutoImport({
+    ViteAutoImport({
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
       imports: ["vue"],
       resolvers: [

@@ -65,39 +65,43 @@
       <!-- 右侧 -->
       <div class="w-9/12 h-screen overflow-y-scroll scrollbar-hide">
         <!-- 标题 -->
-        <div class="text-white text-3xl mt-10">
+        <div class="text-white text-6xl mt-10">
           Hello I'm <span class="fontColor">awm2077</span>
         </div>
         <!-- 宣传语 -->
-        <div class="mt-10">
+        <div class="mt-10 text-white text-2xl">
           <div class="">
-            👦 <span>Full Stack</span>
+            👦 <span class="text-indigo-500">Full Stack</span>
             Deceloper
           </div>
           <div>
             📝 The only way to do
-            <span class="purpleText textBackground">great</span>
+            <span class="bg-[rgba(39,39,39,0.6)] p-1 rounded-lg text-indigo-500"
+              >great</span
+            >
             is to
-            <span class="purpleText textBackground">love</span>
+            <span class="bg-[rgba(39,39,39,0.6)] p-1 rounded-lg text-indigo-500"
+              >love</span
+            >
             what you do.
           </div>
         </div>
         <!-- 链接信息栏 -->
         <div class="w-full h-10 flex items-center mt-10">
-          <div v-for="(item, index) in messageChange" key="index">
+          <div v-for="(item, index) in messageChange" :key="index">
             <div
-              class="flex items-center bg-[rgba(39,39,39,0.5)] p-2 m-2 rounded-lg w-10 h-10"
+              @click="urlEvent(item.linkStyle, item.url)"
+              class="animateG flex items-center bg-[rgba(39,39,39,0.5)] p-2 m-2 rounded-lg w-10 h-10"
             >
               <div class="w-5 h-5">
                 <img :src="item.img" :alt="item.title" />
               </div>
-              <div class="hidden">{{ item.title }}</div>
+              <div class="animateB">{{ item.title }}</div>
             </div>
           </div>
           <div class="bg-[rgba(39,39,39,0.5)] p-1 pl-2 pr-2 m-2 rounded-lg">
             <el-switch
               v-model="change"
-              class=""
               active-color="100"
               style="
                 --el-switch-off-color: rgba(39, 39, 39, 0.4);
@@ -146,11 +150,28 @@
       </div>
     </div>
   </div>
+
+  <div
+    v-show="isShow"
+    @click="isShow = false"
+    class="absolute top-0 left-0 bg-[rgba(39,39,39,0.5)] flex items-center justify-center w-screen h-screen"
+  >
+    <div class="w-80 h-100 bg-white">
+      <img :src="imgUrl" alt="你开心就好" class="w-full h-full" />
+    </div>
+  </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Location, SuitcaseLine, Crop } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 import Tabs from "./components/tabs.vue";
+
+enum links {
+  STRING = "string",
+  URL = "url",
+  IMAGE = "image",
+}
 
 const isShow = ref(false);
 const change = ref(false);
@@ -158,6 +179,8 @@ const isLight = ref(true);
 const isPc = ref(true);
 const titelSites = "sites";
 const titleProjects = "projects";
+
+const imgUrl = ref();
 
 const imageLight = isLight.value
   ? new URL("@/assets/svg/snake-Light.svg", import.meta.url).href
@@ -215,24 +238,28 @@ const messageChange = [
   {
     title: "github",
     url: "https://github.com/awm2077",
+    linkStyle: links.URL,
     // img: "@/assets/images/GitHub.svg",
     img: new URL("@/assets/images/GitHub.svg", import.meta.url).href,
   },
   {
     title: "emali",
     url: "2077685542@qq.com",
+    linkStyle: links.STRING,
     // img: "@/assets/images/email.svg",
     img: new URL("@/assets/images/email.svg", import.meta.url).href,
   },
   {
     title: "support",
-    url: "@/assets/img/wxzsm.jpg",
+    url: "img/wxzsm.jpg",
+    linkStyle: links.IMAGE,
     // img: "@/assets/images/qianbao.svg",
     img: new URL("@/assets/images/qianbao.svg", import.meta.url).href,
   },
   {
     title: "QQ",
-    url: "@/assets/img/qq.jpg",
+    url: "img/qq.jpg",
+    linkStyle: links.IMAGE,
     // img: "@/assets/images/QQ.svg",
     img: new URL("@/assets/images/QQ.svg", import.meta.url).href,
   },
@@ -298,53 +325,74 @@ const project = [
   },
 ];
 
-// 监听帧率
-// const fps = ref(0);
-// window.requestAnimationFrame(function loop() {
-//   fps.value = 1000 / (performance.now() - start);
-//   window.requestAnimationFrame(loop);
-// });
-// const start = performance.now();
+const changeColor = () => {
+  isLight.value = !isLight.value;
+  console.log(isLight.value);
+};
+
+// 导航栏点击事件
+const urlEvent = (e: string, url: string) => {
+  ElMessage({ message: "正在前往", type: "info" });
+  switch (e) {
+    case links.IMAGE:
+      const fullPath = `./assets/${url}`;
+      imgUrl.value = new URL(fullPath, import.meta.url).href;
+      isShow.value = true;
+      break;
+    case links.URL:
+      window.open(url);
+      break;
+    case links.STRING:
+      // 将文本复制到剪贴板
+      ElMessage({ message: "复制成功", type: "success" });
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {})
+        .catch((error) => {
+          ElMessage({ message: error, type: "error" });
+        });
+      break;
+    default:
+      console.log("error");
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 @font-face {
-  font-family: username;
-  src: url("@/assets/fonts/Pacific-Regular.ttf");
-  display: wrap;
+  font-family: "username";
+  src: url("./assets/fonts/Pacifico-Regular.ttf");
+  display: swap;
 }
 @font-face {
-  font-family: b;
-  src: url("@/assets/fonts/Ubuntu-Regular.ttf");
+  font-family: "b";
+  src: url("./assets/fonts/Ubuntu-Regular.ttf");
 }
+
+$colorsLight: ("pink", "red", "blue");
+$colorsDark: ("pink", "purple", "white");
 
 .fontColor {
-  font-family: username;
+  font-family: "username" !important;
 }
 
-@keyframes backgroundSizeAnimation {
-  0% {
-    background-position: 100%;
-  }
-
-  25% {
-    background-position: 50%;
-  }
-
-  50% {
-    background-position: 0%;
-  }
-
-  75% {
-    background-position: 50%;
-  }
-
-  100% {
-    background-position: 100%;
-  }
-}
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+// 链接模块动画
+.animateG:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  width: auto;
+  .animateB {
+    margin-left: 2px;
+    display: block;
+  }
+}
+.animateB {
+  display: none;
 }
 </style>
