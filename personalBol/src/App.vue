@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import oml2d from './components/icon/oml2d.vue'
 import LeftMsg from './components/Left-msg.vue'
+import RightMsg from './components/Right-msg.vue'
 </script>
 <template>
   <oml2d></oml2d>
@@ -8,7 +9,9 @@ import LeftMsg from './components/Left-msg.vue'
     <div class="left">
       <LeftMsg />
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <RightMsg />
+    </div>
   </div>
 </template>
 <style scoped>
