@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>俄罗斯方块</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script defer type="module" src="./index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.3.0/vue.global.prod.min.js"></script>
+    <!-- <script src="./BlockUtil.js"></script> -->
+  </head>
+  <body>
+    <div id="app">
+      <!-- 游戏区 -->
+      <div class="playfield">
+        <template v-for="(row, ri) in PlayFieldBlocks">
+          <div
+            v-for="block in row"
+            class="block"
+            :class="{['b' + block]:true,blink:ClearableLines.includes(ri)}"
+          ></div>
+        </template>
+        <div class="game-over" v-show="isGameOver">
+          <h1>GAME OVER!</h1>
+        </div>
+      </div>
+      <!-- 边栏 -->
+      <div class="aside">
+        <div>
+          <!-- 下一个方块 -->
+          <div v-if="NextTetris" class="nextTetris">
+            <template v-for="row in NextTetris.blocks">
+              <div
+                v-for="block in row"
+                class="block"
+                :class="{['b' + block]:true}"
+              ></div>
+            </template>
+          </div>
+          <!-- 分数 -->
+          <h2 class="record">Score<span>{{Score}}</span></h2>
+          <h2 class="record">Level<span>{{level}}</span></h2>
+        </div>
+        <div class="controls">
+          <button @click="start" v-if="!isStart">Start</button>
+          <button @click="pause" v-if="isStart && !isPause">Pause</button>
+          <button @click="resume" v-if="isPause">Resume</button>
+          <button @click="start" v-if="isStart">Restart</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

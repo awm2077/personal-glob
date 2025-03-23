@@ -369,16 +369,66 @@ const urlEvent = (e: string, url: string) => {
   src: url("./assets/fonts/Ubuntu-Regular.ttf");
 }
 
-$colorsLight: ("pink", "red", "blue");
-$colorsDark: ("pink", "purple", "white");
-
-.fontColor {
-  font-family: "username" !important;
-}
-
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+// 标题文字颜色动画
+// 1. 定义颜色数组（原始色系）
+$gradient-colors: (
+  #0eaf6d,
+  #ff6ac6,
+  #147b96,
+  #e6d205,
+  #2cc4e0,
+  #8b2ce0,
+  #ff6384,
+  #08dfb4
+);
+// 2. 生成浅色变体（lighten值可调整）
+$gradient-colors-light: ();
+@each $color in $gradient-colors {
+  $gradient-colors-light: append(
+    $gradient-colors-light,
+    lighten(desaturate($color, 10%), 15%)
+  );
+}
+// 3. 应用颜色数组的混合器
+@mixin apply-gradient($colors) {
+  background: -webkit-linear-gradient(
+    135deg,
+    nth($colors, 1),
+    nth($colors, 2) 25%,
+    nth($colors, 3) 50%,
+    nth($colors, 4) 55%,
+    nth($colors, 5) 60%,
+    nth($colors, 6) 80%,
+    nth($colors, 7) 95%,
+    nth($colors, 8)
+  );
+}
+
+.fontColor {
+  font-family: "username" !important;
+  @include apply-gradient($gradient-colors);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  .theme-light & {
+    @include apply-gradient($gradient-colors-light);
+  }
+  -webkit-animation: flowCss 12s infinite linear;
+}
+
+@-webkit-keyframes flowCss {
+  0% {
+    /* 移动背景位置 */
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -400% 0;
+  }
 }
 
 // 链接模块动画
