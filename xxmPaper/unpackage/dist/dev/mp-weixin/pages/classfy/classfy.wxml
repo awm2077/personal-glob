@@ -1,0 +1,1 @@
+<view class="classLayout pageBe data-v-dad20a41"><custom-nav-bar wx:if="{{a}}" class="data-v-dad20a41" u-i="dad20a41-0" bind:__l="__l" u-p="{{a}}"></custom-nav-bar><view class="classify data-v-dad20a41"><theme-item wx:for="{{b}}" wx:for-item="item" wx:key="a" class="theme-item data-v-dad20a41" u-i="{{item.b}}" bind:__l="__l" u-p="{{item.c}}"></theme-item></view></view>
