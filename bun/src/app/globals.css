@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Liu+Jian+Mao+Cao&family=Ovo&display=swap");
+
+* {
+  font-family: Outfit, Ovo;
+}
+
+@theme {
+  --font-Ovo: Ovo, sans-serif;
+  --font-Outfit: Outfit, sans-serif;
+
+  --bg-lightHover: #fcf4ff;
+  --bg-darkHover: #2a004a;
+  --bg-lightTheme: #11001f;
+
+  --shadow-black: 4px 4px 0 #000;
+  --shadow-white: 4px 4px 0 #fff;
+
+  --grid-cols-auto: repeat(auto-fit, minmax(200px, 1fr));
+}
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  .dark {
+    --bg-darktheme: #11001f;
+  }
+}
+
+/* 
+
+
+@theme {
+  lighthover: #fcf4ff;
+  darkhover: #2a004a;
+  darktheme: #11001f;
+
+  outfit: "Outfit", "sans-serif";
+  ovo: "Ovo", "serif";
+
+  black: 4px 4px 0 #000;
+  white: 4px 4px 0 #fff;
+} */
