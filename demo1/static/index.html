@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>记事本</title>
+  </head>
+  <body>
+    <h1>Go 语言初级入门</h1>
+    <form @submit="event.preventDefault(); createTodo()">
+      <input type="text" name="name" placeholder="任务名称" />
+      <input type="text" name="description" placeholder="任务描述" />
+      <button type="submit">创建</button>
+    </form>
+    <ul></ul>
+    <script src="index.js"></script>
+  </body>
+</html>
